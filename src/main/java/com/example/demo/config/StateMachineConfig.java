@@ -8,8 +8,6 @@ import com.example.demo.statemachine.event.Event;
 import com.example.demo.statemachine.listener.OrderStateMachineApplicationListener;
 import com.example.demo.statemachine.persist.OrderStateMachinePersister;
 import com.example.demo.statemachine.state.State;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.statemachine.action.Action;
@@ -24,7 +22,7 @@ import org.springframework.statemachine.persist.StateMachinePersister;
 @Configuration
 @EnableStateMachineFactory
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State, Event> {
-    Logger logger = LoggerFactory.getLogger(StateMachineConfig.class);
+
 
 
     @Override

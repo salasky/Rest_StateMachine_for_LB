@@ -6,10 +6,10 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "organizations")
+@Table(name = "company")
 @Data
 @NoArgsConstructor
-public class Organization {
+public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   //IDENTITY - увеличение по правилам в БД
     @Column(name = "id")
