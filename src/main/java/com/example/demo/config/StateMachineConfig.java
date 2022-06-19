@@ -16,6 +16,7 @@ import org.springframework.statemachine.config.EnumStateMachineConfigurerAdapter
 import org.springframework.statemachine.config.builders.StateMachineConfigurationConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
 import org.springframework.statemachine.config.builders.StateMachineTransitionConfigurer;
+import org.springframework.statemachine.guard.Guard;
 import org.springframework.statemachine.persist.DefaultStateMachinePersister;
 import org.springframework.statemachine.persist.StateMachinePersister;
 
@@ -24,13 +25,15 @@ import org.springframework.statemachine.persist.StateMachinePersister;
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State, Event> {
 
 
-
     @Override
     public void configure(StateMachineStateConfigurer<State, Event> states) throws Exception {
 
         states
                 .withStates()
                 .initial(State.PREPARATION)
+                .stateEntry(State.PREPARATION,stateContext -> {
+                    stateContext.getExtendedState().getVariables().getOrDefault("orderId",-1l);
+                })
                 .state(State.PERFORMANCE)
                 .state(State.CONTROL)
                 .state(State.REVISION)
@@ -70,6 +73,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State,
                 .withExternal()
                 .source(State.CONTROL)
                 .target(State.ACCEPTANCE)
+                .guard(succeesControl()) ///////succeesControl=true
                 .event(Event.SUCCESS)
                 .action(acceptanceAction())
 
@@ -78,6 +82,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State,
                 .withExternal()
                 .source(State.CONTROL)
                 .target(State.REVISION)
+                .guard(failControl())
                 .event(Event.FAIL_CONTROL)
                 .action(revisionAction())
 
@@ -87,8 +92,59 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State,
                 .source(State.REVISION)
                 .target(State.PERFORMANCE)
                 .event(Event.SECOND_CONTROL)
-                .action(performanceAction());
+                .action(performanceAction())
 
+
+                //Чтобы обойти guard между Control --Acceptance
+                //Нужно с Control послать дополнительный event Event.InternalSuccess
+                //Event.InternalSuccess запустит action(internalSucceesAction()) который положит
+                //в контекст put("succeesControl",true)
+                .and()
+                .withInternal()
+                .source(State.CONTROL)
+                .event(Event.InternalSuccess)
+                .action(internalSucceesAction())
+
+                //Аналогично предыдущему
+                .and()
+                .withInternal()
+                .source(State.CONTROL)
+                .event(Event.InternalFailed)
+                .action(internalFailedAction());;
+
+
+    }
+
+    private Action<State, Event> internalFailedAction() {
+        return stateContext ->
+                stateContext.getExtendedState().getVariables().put("falseControl",true);
+    }
+
+    private Action<State, Event> internalSucceesAction() {
+        return stateContext ->
+        stateContext.getExtendedState().getVariables().put("succeesControl",true);
+    }
+
+    private Guard<State, Event> failControl() {
+        return stateContext -> {
+            Boolean control=(Boolean) stateContext.getExtendedState().getVariables().get("falseControl");
+            if(control!=null){
+                return control;
+            }
+            return false;
+
+        };
+    }
+
+    private Guard<State, Event> succeesControl() {
+        return stateContext -> {
+            Boolean control=(Boolean) stateContext.getExtendedState().getVariables().get("succeesControl");
+            if(control!=null){
+                return control;
+            }
+            return false;
+
+        };
     }
 
     @Bean

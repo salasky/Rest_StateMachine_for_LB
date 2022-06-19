@@ -5,5 +5,5 @@ public enum Event {
     FIRST_CONTROL,
     SUCCESS ,
     FAIL_CONTROL,
-    SECOND_CONTROL
+    InternalSuccess, InternalFailed, SECOND_CONTROL
 }

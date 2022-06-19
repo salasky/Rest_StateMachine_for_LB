@@ -13,7 +13,7 @@ public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   //IDENTITY - увеличение по правилам в БД
     @Column(name = "id")
-    private int id;
+    private Long id;
 
     @Column(name = "name_of_company")
     private String name_of_company;

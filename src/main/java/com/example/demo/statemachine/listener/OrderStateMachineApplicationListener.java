@@ -8,12 +8,21 @@ import org.springframework.statemachine.StateMachine;
 import org.springframework.statemachine.listener.StateMachineListener;
 import org.springframework.statemachine.transition.Transition;
 
+import java.util.Optional;
+
 public class OrderStateMachineApplicationListener implements StateMachineListener<State, Event> {
+
+    private Object ofNullableState(org.springframework.statemachine.state.State s) {
+        return Optional.ofNullable(s)
+                .map(org.springframework.statemachine.state.State::getId)
+                .orElse(null);
+    }
+
     @Override
     public void stateChanged(org.springframework.statemachine.state.State<State, Event> state, org.springframework.statemachine.state.State<State, Event> state1) {
-        if (state.getId() != null) {
-            System.out.println("Переход из статуса " + state.getId() + " в статус " + state1.getId());
-        }
+
+            System.out.println("Переход из статуса " + ofNullableState(state) + " в статус " + ofNullableState(state1));
+
     }
 
 
@@ -34,6 +43,8 @@ public class OrderStateMachineApplicationListener implements StateMachineListene
 
     @Override
     public void transition(Transition<State, Event> transition) {
+        System.out.println("Переход из:"+ofNullableState(transition.getSource())+ " в: "+ofNullableState(transition.getTarget())+"");
+
 
     }
 
@@ -54,7 +65,7 @@ public class OrderStateMachineApplicationListener implements StateMachineListene
 
     @Override
     public void stateMachineStopped(StateMachine<State, Event> stateMachine) {
-
+        System.out.println("Machine stop");
     }
 
     @Override
