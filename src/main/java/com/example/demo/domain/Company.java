@@ -1,14 +1,20 @@
 package com.example.demo.domain;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.*;
+import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "company")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
+@ToString
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   //IDENTITY - увеличение по правилам в БД
@@ -27,5 +33,17 @@ public class Company {
     @Column(name = "supervisor")
     private String supervisor;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "company")
+    private List<Subdivision> subdivisions;
+
+
+    public Company(Long id, String name_of_company, String physical_adress, String legal_address, String supervisor) {
+        this.id = id;
+        this.name_of_company = name_of_company;
+        this.physical_adress = physical_adress;
+        this.legal_address = legal_address;
+        this.supervisor = supervisor;
+    }
 
 }

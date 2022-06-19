@@ -1,5 +1,7 @@
 package com.example.demo.domain;
 
+import com.example.demo.statemachine.state.State;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -9,6 +11,7 @@ import javax.persistence.*;
 @Table(name = "orders")
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Order {
 
     @Id
@@ -31,8 +34,8 @@ public class Order {
     @Column(name = "sign_control")
     private String signControl;
 
-    @Column(name = "sign_performance")
-    private String signPerformance;
+    @Enumerated(EnumType.STRING)
+    private State state;
 
     @Column(name = "order_text")
     private String orderText;

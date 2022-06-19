@@ -130,19 +130,10 @@ private StateMachinePersister<State,Event,String> persister;
         Assertions.assertEquals(machine2.getState().getId(),State.CONTROL);
         //Контекст восстановился
         Assertions.assertTrue((Boolean) machine2.getExtendedState().getVariables().get("succeesControl"));
-    }
-
-    @DisplayName("Дефолтный orderId")
-    @Test
-    void testDefoltOrderId() throws Exception {
-
-        var machine=stateMachineFactory.getStateMachine();
-        machine.start();
-
-        Assertions.assertEquals(-1l,machine.getExtendedState().getVariables().get("orderId"));
 
 
 
     }
+
 
 }

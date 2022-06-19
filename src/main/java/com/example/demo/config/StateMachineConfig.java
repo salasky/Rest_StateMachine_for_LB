@@ -31,9 +31,6 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State,
         states
                 .withStates()
                 .initial(State.PREPARATION)
-                .stateEntry(State.PREPARATION,stateContext -> {
-                    stateContext.getExtendedState().getVariables().getOrDefault("orderId",-1l);
-                })
                 .state(State.PERFORMANCE)
                 .state(State.CONTROL)
                 .state(State.REVISION)
