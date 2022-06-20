@@ -37,23 +37,19 @@ public class DemoApplication {
         var subdivisoinRepositories=context.getBean(SubdivisionRepositories.class);
 
         userrepositories.save(
-                new User(1l,"user",
-                        "user","USER","USER"
-                        ,"USER","USER"));
+                new User("admin",
+                        "admin"));
         userrepositories.save(
-                new User(2l,"salasky",
-                        "password","Salavat","Migranov"
-                        ,"Vagizovich","jun"));
+                new User("salasky",
+                        "password"));
         userrepositories.save(
-                new User(3l,"TenserFlow",
-                        "password","Ivan","Ivanov"
-                        ,"Ivanovich","middle"));
+                new User("TenserFlow",
+                        "password"));
 
-        Company company=new Company(1l,"Name","Adress",
+        Company company=new Company("Name","Adress",
                 "Adress","Ruk");
-        companyRepositories.save(company);
 
-        Subdivision subdivision=new Subdivision(1l,"11","22","33",company);
+        Subdivision subdivision=new Subdivision("11","22","33",company);
 
         subdivisoinRepositories.save(subdivision);
 

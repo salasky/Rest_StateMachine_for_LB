@@ -15,11 +15,15 @@ import java.util.List;
 @Service
 public class CompanyServiceImpl implements CompanyService {
 
-    @Autowired
+
     private CompanyRepositories companyRepositories;
+    private SubdivisionRepositories subdivisionRepositories;
 
     @Autowired
-    private SubdivisionRepositories subdivisionRepositories;
+    public CompanyServiceImpl(CompanyRepositories companyRepositories, SubdivisionRepositories subdivisionRepositories) {
+        this.companyRepositories = companyRepositories;
+        this.subdivisionRepositories = subdivisionRepositories;
+    }
 
     @Override
     public List<Company> getAll() {
@@ -33,7 +37,7 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Override
     public Company getById(Long id) {
-        System.out.println(companyRepositories.findById(id).get());
+
         return companyRepositories.findById(id).get();
     }
 
@@ -54,13 +58,14 @@ public class CompanyServiceImpl implements CompanyService {
                 });
     }
 
+
     @Override
     public ResponseEntity delete(Long id) {
-        companyRepositories.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Company с id "+ id+ " успешно удален");
+        try {
+            companyRepositories.deleteById(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Company с id "+ id+ " успешно удален");
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company с id "+ id+ " не найден");
+        }
     }
-
-
-
-
 }

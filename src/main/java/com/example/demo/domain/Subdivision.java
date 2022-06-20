@@ -1,9 +1,7 @@
 package com.example.demo.domain;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Subdivision {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   //IDENTITY - увеличение по правилам в БД
@@ -28,15 +27,29 @@ public class Subdivision {
     @Column(name = "supervisor")
     private String supervisor;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="company_id")
     private Company company;
 
-    public Subdivision(Long id, String name, String contact, String supervisor, Company company) {
-        this.id = id;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "subdivision",cascade = CascadeType.ALL)
+    private List<Employee> employees;
+
+    public Subdivision(String name, String contact, String supervisor, Company company) {
         this.name = name;
         this.contact = contact;
         this.supervisor = supervisor;
         this.company = company;
     }
+
+    public Subdivision(Long id,String name, String contact, String supervisor, Company company) {
+        this.id=id;
+        this.name = name;
+        this.contact = contact;
+        this.supervisor = supervisor;
+        this.company = company;
+    }
+
+
 }

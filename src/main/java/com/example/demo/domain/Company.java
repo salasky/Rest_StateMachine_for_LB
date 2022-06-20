@@ -34,12 +34,11 @@ public class Company {
     private String supervisor;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company",cascade = {CascadeType.ALL})
     private List<Subdivision> subdivisions;
 
 
-    public Company(Long id, String name_of_company, String physical_adress, String legal_address, String supervisor) {
-        this.id = id;
+    public Company( String name_of_company, String physical_adress, String legal_address, String supervisor) {
         this.name_of_company = name_of_company;
         this.physical_adress = physical_adress;
         this.legal_address = legal_address;
