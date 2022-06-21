@@ -43,7 +43,7 @@ public class OrderStateMachineApplicationListener implements StateMachineListene
 
     @Override
     public void transition(Transition<State, Event> transition) {
-        System.out.println("Переход из:"+ofNullableState(transition.getSource())+ " в: "+ofNullableState(transition.getTarget())+"");
+        /*System.out.println("Переход из:"+ofNullableState(transition.getSource())+ " в: "+ofNullableState(transition.getTarget())+"");*/
 
 
     }

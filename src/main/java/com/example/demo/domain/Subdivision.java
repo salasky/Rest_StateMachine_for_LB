@@ -12,6 +12,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Subdivision {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   //IDENTITY - увеличение по правилам в БД
@@ -43,13 +44,7 @@ public class Subdivision {
         this.company = company;
     }
 
-    public Subdivision(Long id,String name, String contact, String supervisor, Company company) {
-        this.id=id;
-        this.name = name;
-        this.contact = contact;
-        this.supervisor = supervisor;
-        this.company = company;
-    }
+
 
 
 }

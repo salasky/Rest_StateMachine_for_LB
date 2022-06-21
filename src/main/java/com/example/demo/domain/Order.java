@@ -1,9 +1,7 @@
 package com.example.demo.domain;
 
 import com.example.demo.statemachine.state.State;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -11,7 +9,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "orders")
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 public class Order {
@@ -50,11 +50,10 @@ public class Order {
             inverseJoinColumns = @JoinColumn(name = "employeeE_id"))
     List<Employee> ExecEmployee;
 
-    public Order(String subject, String periodExecution, String signControl, State state, String orderText, Employee authEmployee, List<Employee> execEmployee) {
+    public Order(String subject, String periodExecution, String signControl,  String orderText, Employee authEmployee, List<Employee> execEmployee) {
         this.subject = subject;
         this.periodExecution = periodExecution;
         this.signControl = signControl;
-        this.state = state;
         this.orderText = orderText;
         AuthEmployee = authEmployee;
         ExecEmployee = execEmployee;

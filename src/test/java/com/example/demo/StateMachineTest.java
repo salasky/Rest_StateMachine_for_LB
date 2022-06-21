@@ -131,6 +131,22 @@ private StateMachinePersister<State,Event,String> persister;
         //Контекст восстановился
         Assertions.assertTrue((Boolean) machine2.getExtendedState().getVariables().get("succeesControl"));
 
+    }
+
+    @DisplayName("Проверкee persist")
+    @Test
+    void testPerseist() throws Exception {
+
+        StateMachine <State, Event> machine1=stateMachineFactory.getStateMachine("1");
+        machine1.sendEvent(Event.START);
+
+        StateMachine <State, Event> machine2=stateMachineFactory.getStateMachine("1");
+
+
+
+        //State восстановился
+        Assertions.assertEquals(machine1.getState().getId(),State.PERFORMANCE);
+
 
 
     }

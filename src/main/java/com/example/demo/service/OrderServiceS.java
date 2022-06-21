@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
+import com.example.demo.domain.Order;
+import com.example.demo.dto.OrderDTO;
 import com.example.demo.statemachine.event.Event;
 import com.example.demo.statemachine.state.State;
+import org.springframework.http.ResponseEntity;
 import org.springframework.statemachine.StateMachine;
 
 public interface OrderServiceS {
-    StateMachine<State,Event> FirstPerform(Long orderId);
+    StateMachine<State,Event> start(Long orderId);
 
     StateMachine<State,Event> control(Long orderId);
 
@@ -19,6 +22,9 @@ public interface OrderServiceS {
 
     StateMachine<State,Event>  internalFailed(Long orderId);
 
+
+
+    ResponseEntity newOrder(OrderDTO orderDTO);
 
 
     //получение конечного автомата из базы данных

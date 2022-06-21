@@ -1,8 +1,7 @@
 package com.example.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,13 +9,15 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employees")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)   //IDENTITY - увеличение по правилам в БД
     @Column(name = "id")
     private Long id;
+
 
     @Column(name = "username")
     private String username;
@@ -39,12 +40,13 @@ public class Employee {
     private Subdivision subdivision;
 
 
+    @JsonIgnore
     @OneToMany(mappedBy="AuthEmployee")
     private List<Order> AuthOrders;
 
 
-
-    @ManyToMany(mappedBy = "ExecEmploye")
+    @JsonIgnore
+    @ManyToMany(mappedBy = "ExecEmployee")
     private List<Order> ExecOrders;
 
 
@@ -56,5 +58,18 @@ public class Employee {
         this.last_name = last_name;
         this.job_title = job_title;
         this.subdivision = subdivision;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", first_name='" + first_name + '\'' +
+                ", second_name='" + second_name + '\'' +
+                ", last_name='" + last_name + '\'' +
+                ", job_title='" + job_title + '\'' +
+                ", subdivision=" + subdivision +
+                '}';
     }
 }
