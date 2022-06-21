@@ -1,9 +1,12 @@
 package com.example.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "employees")
@@ -34,6 +37,17 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name="subdivision_id")
     private Subdivision subdivision;
+
+
+    @OneToMany(mappedBy="AuthEmployee")
+    private List<Order> AuthOrders;
+
+
+
+    @ManyToMany(mappedBy = "ExecEmploye")
+    private List<Order> ExecOrders;
+
+
 
     public Employee(String username, String first_name, String second_name, String last_name, String job_title, Subdivision subdivision) {
         this.username = username;

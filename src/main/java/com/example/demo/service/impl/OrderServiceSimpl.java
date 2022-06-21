@@ -28,12 +28,15 @@ public class OrderServiceSimpl implements OrderServiceS {
         this.stateMachineFactory = stateMachineFactory;
         this.orderRepositories = orderRepositories;
     }
+    
     /*
     Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
     String currentPrincipalName = authentication.getName();
     User user=userService.getByLogin(currentPrincipalName);
 
 */
+
+
 
 
     @Override

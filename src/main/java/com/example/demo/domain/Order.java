@@ -6,6 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "orders")
@@ -22,12 +24,6 @@ public class Order {
     @Column(name = "subject")
     private String subject;
 
-    @Column(name = "author")
-    private String author;
-
-    @Column(name = "executors")
-    private String executors;
-
     @Column(name = "period_execution")
     private String periodExecution;
 
@@ -40,4 +36,27 @@ public class Order {
     @Column(name = "order_text")
     private String orderText;
 
+
+    @ManyToOne
+    @JoinColumn(name="employeeAuthor_id", nullable=false)
+    private Employee AuthEmployee;
+
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "exec_like",
+            joinColumns = @JoinColumn(name = "order_id"),
+            inverseJoinColumns = @JoinColumn(name = "employeeE_id"))
+    List<Employee> ExecEmployee;
+
+    public Order(String subject, String periodExecution, String signControl, State state, String orderText, Employee authEmployee, List<Employee> execEmployee) {
+        this.subject = subject;
+        this.periodExecution = periodExecution;
+        this.signControl = signControl;
+        this.state = state;
+        this.orderText = orderText;
+        AuthEmployee = authEmployee;
+        ExecEmployee = execEmployee;
+    }
 }
