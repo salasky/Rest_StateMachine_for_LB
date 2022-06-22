@@ -36,6 +36,13 @@ public class OrderController {
         return orderServiceS.getById(id);
     }
 
+    @GetMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable Long id){
+        return orderServiceS.delete(id);
+    }
+
+
+
     @GetMapping("/perform/{id}")
     public ResponseEntity perform(@PathVariable Long id){
         return orderServiceS.performanceState(id);

@@ -21,7 +21,7 @@ public class OrderStateMachineApplicationListener implements StateMachineListene
     @Override
     public void stateChanged(org.springframework.statemachine.state.State<State, Event> state, org.springframework.statemachine.state.State<State, Event> state1) {
 
-            System.out.println("Переход из статуса " + ofNullableState(state) + " в статус " + ofNullableState(state1));
+           /* System.out.println("Переход из статуса " + ofNullableState(state) + " в статус " + ofNullableState(state1));*/
 
     }
 
@@ -43,7 +43,7 @@ public class OrderStateMachineApplicationListener implements StateMachineListene
 
     @Override
     public void transition(Transition<State, Event> transition) {
-        /*System.out.println("Переход из:"+ofNullableState(transition.getSource())+ " в: "+ofNullableState(transition.getTarget())+"");*/
+        System.out.println("Переход из:"+ofNullableState(transition.getSource())+ " в: "+ofNullableState(transition.getTarget())+"");
 
 
     }

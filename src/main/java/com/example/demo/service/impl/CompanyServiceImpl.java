@@ -73,7 +73,7 @@ public class CompanyServiceImpl implements CompanyService {
             logger.info("Компания  с id "+id+ " удалена");
             return ResponseEntity.status(HttpStatus.OK).body("Company с id "+ id+ " успешно удален");
         }catch (Exception e){
-            logger.info("Удаление.Компания  с id "+id+ " не найдена");
+            logger.error("Удаление.Компания  с id "+id+ " не найдена");
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Company с id "+ id+ " не найден");
         }
     }

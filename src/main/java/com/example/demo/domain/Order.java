@@ -58,4 +58,14 @@ public class Order {
         AuthEmployee = authEmployee;
         ExecEmployee = execEmployee;
     }
+
+    public Order(String subject, String periodExecution, String signControl, State state, String orderText, Employee authEmployee, List<Employee> execEmployee) {
+        this.subject = subject;
+        this.periodExecution = periodExecution;
+        this.signControl = signControl;
+        this.state = state;
+        this.orderText = orderText;
+        AuthEmployee = authEmployee;
+        ExecEmployee = execEmployee;
+    }
 }

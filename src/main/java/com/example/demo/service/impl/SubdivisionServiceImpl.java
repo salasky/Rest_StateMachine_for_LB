@@ -1,6 +1,9 @@
 package com.example.demo.service.impl;
 
+import com.example.demo.domain.Company;
 import com.example.demo.domain.Subdivision;
+import com.example.demo.dto.SubdivisionDTO;
+import com.example.demo.repositories.CompanyRepositories;
 import com.example.demo.repositories.EmployeeRepositories;
 import com.example.demo.repositories.SubdivisionRepositories;
 import com.example.demo.service.SubdivisionService;
@@ -20,13 +23,13 @@ public class SubdivisionServiceImpl implements SubdivisionService {
 
     private SubdivisionRepositories subdivisionRepositories;
     private EmployeeRepositories employeeRepositories;
-
+    private CompanyRepositories companyRepositories;
     @Autowired
-    public SubdivisionServiceImpl(SubdivisionRepositories subdivisionRepositories, EmployeeRepositories employeeRepositories) {
+    public SubdivisionServiceImpl(SubdivisionRepositories subdivisionRepositories, EmployeeRepositories employeeRepositories, CompanyRepositories companyRepositories) {
         this.subdivisionRepositories = subdivisionRepositories;
         this.employeeRepositories = employeeRepositories;
+        this.companyRepositories = companyRepositories;
     }
-
 
     @Override
     public Subdivision getById(Long id) {
@@ -41,9 +44,18 @@ public class SubdivisionServiceImpl implements SubdivisionService {
     }
 
     @Override
-    public Subdivision add(Subdivision subdivision) {
-        logger.info("Выдача инфрмации о подразделениях");
-        return subdivisionRepositories.save(subdivision);
+    public ResponseEntity add(SubdivisionDTO subdivisionDTO) {
+
+        var companys=companyRepositories.findById(subdivisionDTO.getCompanyId());
+        if(companys.isPresent()){
+            var company=companys.get();
+            Subdivision subdivision=new Subdivision(subdivisionDTO.getName(),subdivisionDTO.getContact(),subdivisionDTO.getSupervisor(),company);
+            logger.info("Добавление нового подразделения");
+            var sub=subdivisionRepositories.save(subdivision);
+            return ResponseEntity.status(HttpStatus.OK).body(sub);
+        }
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Нет компании с данным id");
+
     }
 
     @Override

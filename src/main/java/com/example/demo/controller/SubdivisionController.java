@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Company;
 import com.example.demo.domain.Subdivision;
+import com.example.demo.dto.SubdivisionDTO;
 import com.example.demo.service.SubdivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,8 +31,8 @@ public class SubdivisionController {
     }
 
     @PostMapping("/add")
-    public Subdivision addCompany(@RequestBody Subdivision subdivision){
-        return subdivisionService.add(subdivision);
+    public ResponseEntity addCompany(@RequestBody SubdivisionDTO subdivisionDTO){
+        return subdivisionService.add(subdivisionDTO);
     }
 
     @PostMapping("/update/{id}")

@@ -115,6 +115,17 @@ public class OrderServiceSimpl implements OrderServiceS {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Не удалось найти поручение с id "+id);
     }
 
+    @Override
+    public ResponseEntity delete(Long id) {
+        if(orderRepositories.existsById(id)){
+            orderRepositories.deleteById(id);
+            logger.info("Поручение  с id "+id+ " удалено");
+            return ResponseEntity.status(HttpStatus.OK).body("Поручение  с id "+id+ " удалено");
+        }
+        logger.error("Удаление.Поручение  с id "+id+ " не найдено");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Удаление.Поручение  с id "+id+ " не найдено");
+    }
+
 
     //В стутус в исполнении могут перевести только исполнители поручения..реализовать
 

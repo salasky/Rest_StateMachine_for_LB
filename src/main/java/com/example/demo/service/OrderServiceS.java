@@ -22,6 +22,7 @@ public interface OrderServiceS {
 
     ResponseEntity performanceState(Long orderid);
 
+    ResponseEntity delete(Long id);
     List<Order> getAll();
     ResponseEntity getById(Long id);
 

@@ -1,11 +1,9 @@
 package com.example.demo;
 
 import com.example.demo.config.JwtTokenRepository;
-import com.example.demo.domain.Company;
-import com.example.demo.domain.Employee;
-import com.example.demo.domain.Subdivision;
-import com.example.demo.domain.User;
+import com.example.demo.domain.*;
 import com.example.demo.repositories.*;
+import com.example.demo.statemachine.state.State;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -36,27 +34,34 @@ public class DemoApplication {
         var employeeRepositories=context.getBean(EmployeeRepositories.class);
         var orderRepositories=context.getBean(OrderRepositories.class);
 
-/*        userrepositories.save(
+     userrepositories.save(
                 new User("admin",
                         "admin"));
-        userrepositories.save(
-                new User("salasky",
-                        "password"));
-        userrepositories.save(
-                new User("TenserFlow",
-                        "password"));
 
-        Company company=new Company("Name","Adress",
-                "Adress","Ruk");
+        Company company=new Company("UralMash","Miass", "Kutuzova","VVP");
+        Company company1=new Company("MMG","Miass", "Pushkina","VVP");
 
-        Subdivision subdivision=new Subdivision("11","22","33",company);
-
+        Subdivision subdivision=new Subdivision("HR","URALMASHHR@ms.com","Ivanov",company);
+        Subdivision subdivision1=new Subdivision("IT","URALMASHIT@ms.com","Petrov",company1);
+        companyRepositories.save(company);
+        companyRepositories.save(company1);
         subdivisoinRepositories.save(subdivision);
+        subdivisoinRepositories.save(subdivision1);
 
-        Employee employee=new Employee("Krol","Artem",
-                "Pavlov","NoBa0","Engineer",subdivision);
 
-        employeeRepositories.save(employee);*/
+       Employee employee=new Employee("Krol","Artem",
+                "Pavlov","NoBa0","Manager",subdivision);
+
+        Employee employee1=new Employee("SkyNet","Ivan",
+                "Kozikov","Rdr","Programmer",subdivision1);
+
+        employeeRepositories.save(employee);
+        employeeRepositories.save(employee1);
+
+        List<Employee> employees=new ArrayList<>();
+        employees.add(employee1);
+        Order order=new Order("Laptop","2022-04-01","orderList",State.PREPARATION,"Buy asus n551vw",employee,employees);
+        orderRepositories.save(order);
 
     }
 

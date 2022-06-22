@@ -20,6 +20,11 @@ import org.springframework.statemachine.guard.Guard;
 import org.springframework.statemachine.persist.DefaultStateMachinePersister;
 import org.springframework.statemachine.persist.StateMachinePersister;
 
+
+/*                      "PREPARATION-->PERFORMANCE-->CONTROL-->ACCEPTANCE
+                                            ^           |
+                                            |           |
+                                            |-REVISION <-\*/
 @Configuration
 @EnableStateMachineFactory
 public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State, Event> {
@@ -162,10 +167,7 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State,
         return new RevisionAction();
     }
 
-/*    @Bean
-    public StateMachinePersister<State, Event, String> persister() {
-        return new DefaultStateMachinePersister<>(new InMemoryStateMachinePersist());
-    }*/
+
 
 
 }
