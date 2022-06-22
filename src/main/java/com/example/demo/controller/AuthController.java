@@ -31,7 +31,6 @@ public class AuthController {
     @PostMapping(path = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody com.example.demo.domain.User getAuthUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
         if (auth == null) {
             return null;
         }

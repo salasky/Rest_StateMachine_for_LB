@@ -34,7 +34,7 @@ public class Employee {
     @Column(name = "job_title")
     private String job_title;
 
-
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name="subdivision_id")
     private Subdivision subdivision;

@@ -35,6 +35,7 @@ public class DemoApplication {
         var subdivisoinRepositories=context.getBean(SubdivisionRepositories.class);
         var employeeRepositories=context.getBean(EmployeeRepositories.class);
         var orderRepositories=context.getBean(OrderRepositories.class);
+
 /*        userrepositories.save(
                 new User("admin",
                         "admin"));

@@ -7,25 +7,23 @@ import com.example.demo.statemachine.state.State;
 import org.springframework.http.ResponseEntity;
 import org.springframework.statemachine.StateMachine;
 
+import java.util.List;
+
 public interface OrderServiceS {
-    StateMachine<State,Event> start(Long orderId);
+    public ResponseEntity newOrder(OrderDTO orderDTO);
 
-    StateMachine<State,Event> control(Long orderId);
+    ResponseEntity control(Long orderId);
 
-    StateMachine<State,Event>  accept(Long orderId);
+    ResponseEntity  accept(Long orderId);
 
-    StateMachine<State,Event>  revision(Long orderId);
+    ResponseEntity  revision(Long orderId);
 
-    StateMachine<State,Event> SecondPerform(Long orderId);
+    ResponseEntity secondPerform(Long orderId);
 
-    StateMachine<State,Event>  internalSuccess(Long orderId);
+    ResponseEntity performanceState(Long orderid);
 
-    StateMachine<State,Event>  internalFailed(Long orderId);
-
-
-
-    ResponseEntity newOrder(OrderDTO orderDTO);
-
+    List<Order> getAll();
+    ResponseEntity getById(Long id);
 
     //получение конечного автомата из базы данных
     StateMachine<State, Event> build (Long orderId);

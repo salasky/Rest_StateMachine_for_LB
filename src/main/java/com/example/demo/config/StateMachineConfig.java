@@ -6,7 +6,7 @@ import com.example.demo.statemachine.action.PerformanceAction;
 import com.example.demo.statemachine.action.RevisionAction;
 import com.example.demo.statemachine.event.Event;
 import com.example.demo.statemachine.listener.OrderStateMachineApplicationListener;
-import com.example.demo.statemachine.persist.OrderStateMachinePersister;
+import com.example.demo.statemachine.persist.InMemoryStateMachinePersist;
 import com.example.demo.statemachine.state.State;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -162,10 +162,10 @@ public class StateMachineConfig extends EnumStateMachineConfigurerAdapter<State,
         return new RevisionAction();
     }
 
-    @Bean
+/*    @Bean
     public StateMachinePersister<State, Event, String> persister() {
-        return new DefaultStateMachinePersister<>(new OrderStateMachinePersister());
-    }
+        return new DefaultStateMachinePersister<>(new InMemoryStateMachinePersist());
+    }*/
 
 
 }
